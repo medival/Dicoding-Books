@@ -2,6 +2,22 @@ function main() {
 
     const getBook = () => {
         // tuliskan kode di sini!
+        const xhr = new XMLHttpRequest();
+
+        // callback
+        xhr.onload = function () {
+            const responseJSON = JSON.parse(this.responseText);
+            if (responseJSON.error) {
+                showResponseMessage(responseJSON.message);
+            } else {
+                renderAllBooks(responseJSON.books);
+            }
+        }
+
+        // tampilkan error
+        xhr.onerror = function () {
+            showResponseMessage();
+        }
     };
 
 
